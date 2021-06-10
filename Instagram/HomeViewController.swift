@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     // 投稿データを格納する配列
@@ -71,6 +71,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        
+        cell.commentButton.addTarget(self, action:#selector(handleCommentButton(_:forEvent:)), for: .touchUpInside)
 
         return cell
     }
@@ -102,6 +104,54 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
             postRef.updateData(["likes": updateValue])
         }
+    }
+    
+    // セル内のボタンがタップされた時に呼ばれるメソッド
+    @objc func handleCommentButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: commentボタンがタップされました。")
+
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first  // イベント情報からタッチの情報を取得
+        let point = touch!.location(in: self.tableView)  // タッチされた座標を取得
+        let indexPath = tableView.indexPathForRow(at: point)  // タッチの座標がテーブルのどのセルにあたるか取得
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+
+        // コメント登録画面を呼び出す
+        let alert = UIAlertController(title: "コメント", message: nil, preferredStyle: .alert)
+        var uiTextField = UITextField()
+        
+        alert.addTextField(configurationHandler: {(textField) -> Void in
+            textField.delegate = self
+            uiTextField = textField
+        })
+        
+        // 投稿ボタン
+        let selectAction = UIAlertAction(title: "投稿", style: .default) { action in
+            print("tapped post")
+            // コメント登録処理
+            // 更新データを作成する
+            var updateValue: FieldValue
+            let name = Auth.auth().currentUser?.displayName
+            let addComment = name! + " : " + uiTextField.text!
+            
+            updateValue = FieldValue.arrayUnion([addComment])
+            
+            // commentsに更新データを書き込む
+            let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
+            postRef.updateData(["comments": updateValue])
+        }
+        // キャンセルボタン
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { action in
+            print("tapped cancel")
+        }
+        // アクションの追加
+        alert.addAction(selectAction)
+        alert.addAction(cancelAction)
+        
+        // UIAlertControllerの表示
+        present(alert, animated: true, completion: nil)
     }
 
 }

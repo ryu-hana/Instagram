@@ -289,8 +289,6 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 2.30907.0)
-  - FirebaseFirestoreSwift (7.11.0-beta):
-    - FirebaseFirestore (~> 7.0)
   - FirebaseInstallations (7.11.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
@@ -375,7 +373,6 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - Firebase/Storage
-  - FirebaseFirestoreSwift (~> 7.0-beta)
   - FirebaseUI/Storage
   - SVProgressHUD (= 2.2.5)
 
@@ -390,7 +387,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseFirestore
-    - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FirebaseStorage
     - FirebaseUI
@@ -416,7 +412,6 @@ SPEC CHECKSUMS:
   FirebaseCore: 06a2b68af8901f2244eb989419eb89edc3789b4d
   FirebaseCoreDiagnostics: 3d36e05da74cb8b7ce30e6594a8f201b982c725c
   FirebaseFirestore: 9a4c23e979412a8557992f4515314b38fc0c888b
-  FirebaseFirestoreSwift: 1e3899e6430e77267cac7da81c555f7a7a49a549
   FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
   FirebaseStorage: 9cbdff7bdcdc8289c8efc20945fc91c1066d0b43
   FirebaseUI: 59db3d833773f985550897d54ceb811ba37fb9a5
@@ -432,6 +427,6 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 4cf9e2e05a1cca2e1e37759664f8d38d87479d8c
+PODFILE CHECKSUM: fad4e495b9ef1fb8e42aa1d8eb7cd25216908971
 
 COCOAPODS: 1.10.1

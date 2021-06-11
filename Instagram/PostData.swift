@@ -7,7 +7,6 @@
 
 import UIKit
 import Firebase
-import FirebaseFirestoreSwift
 
 class PostData: NSObject {
     var id: String
